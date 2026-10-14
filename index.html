@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Two-Way ANOVA · Visual Playground</title>
+<style>
+:root{--ink:#183647;--muted:#607582;--line:#d6e5e9;--bg:#f4f8fa;--teal:#0f807d;--blue:#397caf;--orange:#db8242;--purple:#775db3;--good:#26724e;--gold:#f6dbad;--soft:#e8f5f1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}button,input{font:inherit}button{cursor:pointer}.wrap{max-width:1200px;margin:0 auto;padding:22px 19px 48px}header{background:linear-gradient(116deg,#143d50,#137d77);color:white;padding:27px 31px;border-radius:22px;box-shadow:0 8px 28px #123e4d22}header small{font-size:11px;text-transform:uppercase;letter-spacing:2px;font-weight:800;color:#c7e8e2}header h1{font-size:clamp(29px,4vw,42px);margin:5px 0 8px;line-height:1.14}header p{margin:0;max-width:860px;color:#e0f5f1;font-size:16px}.intro{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:18px 0}.intro .label{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px}.chip,.mini{border:1px solid #bcd8d8;background:white;color:var(--ink);border-radius:999px;padding:8px 12px;font-size:13px;font-weight:700;transition:transform .14s,background .14s}.chip:hover,.mini:hover{transform:translateY(-1px);background:#e9f7f3}.chip:focus-visible,input:focus-visible{outline:3px solid #f1bd6c;outline-offset:3px}.chip[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:white}.layout{display:grid;grid-template-columns:minmax(285px,.87fr) minmax(0,1.65fr);gap:18px;align-items:start}.left{display:flex;flex-direction:column;gap:16px}.right{display:flex;flex-direction:column;gap:16px}.card{border:1px solid var(--line);border-radius:17px;background:white;padding:20px;box-shadow:0 3px 15px #152b3a08}h2{font-size:23px;margin:0 0 7px}h3{font-size:18px;margin:0 0 6px}.quiet{color:var(--muted);margin:4px 0 10px}.tiny{color:var(--muted);font-size:12px}.eyebrow{font-size:11px;color:var(--teal);font-weight:800;letter-spacing:1.2px;text-transform:uppercase}.slider{display:block;margin:17px 0 0}.slider .line{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700}.slider output{color:var(--teal);font-variant-numeric:tabular-nums;min-width:32px;text-align:right}.slider input[type=range]{width:100%;accent-color:var(--teal);margin:5px 0 0}.ends{font-size:11px;color:var(--muted);display:flex;justify-content:space-between}.gridsliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}.gridsliders .slider{margin-top:12px}.explain{background:#eaf6f2;border-left:4px solid var(--teal);border-radius:10px;padding:12px 13px;margin-top:13px}.explain strong{color:#125d55}.tip{background:#fff7e9;border-left:4px solid #dba254;border-radius:11px;padding:11px 14px;margin-top:11px;font-size:13px}.checks{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;margin:10px 0}.checks label{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);font-weight:650}.checks input{accent-color:var(--teal)}svg.figure{display:block;max-width:100%;width:100%;height:auto}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:8px}.sw{width:10px;height:10px;display:inline-block;border-radius:50%;margin-right:6px}.pair{display:grid;grid-template-columns:1.13fr .87fr;gap:16px}.statgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:13px 0}.stat{padding:13px;border-radius:12px;background:#f9fcfd;border:1px solid var(--line)}.stat .headline{font-size:12px;font-weight:800;color:var(--muted);line-height:1.4}.stat .fnum{font-variant-numeric:tabular-nums;font-weight:850;font-size:25px;margin-top:4px}.stat .pval{font-variant-numeric:tabular-nums;font-size:13px}.badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:800;margin-top:6px}.badge.yes{background:#def0e5;color:#26724e}.badge.no{background:#ffefde;color:#9b6629}.badge.neutral{background:#e9edf6;color:#506082}.reading{display:grid;gap:8px;margin-top:10px}.reading > div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fcfdfd;font-size:13px}.reading b{color:#194f64}.note{font-size:12px;color:var(--muted);margin-top:10px}.tablelike{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.cell{background:#f1f7f8;border:1px solid var(--line);border-radius:11px;padding:9px 10px;text-align:center}.cell strong{font-size:22px;display:block}.cell small{display:block;color:var(--muted);font-size:11px}.corner{background:transparent;border:none;display:flex;align-items:end;justify-content:center;color:var(--muted);font-size:12px}.cell.axis{background:#e9f4f2;color:#316e6a;font-weight:800;display:flex;align-items:center;justify-content:center}.feedback{border:1px solid var(--line);padding:12px 14px;border-radius:13px;background:#fbfcfd}.feedback b{color:var(--teal)}.footer{color:var(--muted);font-size:12px;margin-top:18px}.btn-lite{border:1px solid var(--line);border-radius:9px;background:white;padding:6px 10px;color:var(--teal);font-size:12px;font-weight:750}.btn-lite:hover{background:#edf7f5}.svgtext{font-size:12px;fill:#566d78}.svgaxis{font-size:12px;fill:#486371;font-weight:700}.sr{position:absolute;width:1px;height:1px;clip:rect(0 0 0 0);white-space:nowrap;overflow:hidden}
+@media(max-width:925px){.layout{grid-template-columns:1fr}.left{display:grid;grid-template-columns:1fr 1fr;align-items:start}.left .card:first-child{grid-row:span 2}}@media(max-width:690px){.wrap{padding:11px 10px 35px}header,.card{padding:17px}.left,.pair{display:block}.left .card,.pair .card{margin-bottom:12px}.statgrid{grid-template-columns:1fr}.stat .fnum{display:inline-block;margin-right:16px;font-size:21px}.stat .pval{display:inline-block;margin-right:10px}.stat .badge{display:inline-block}.chip{font-size:12px;padding:7px 10px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}@media print{.intro,.slider,.checks,.btn-lite{display:none!important}.layout{display:block}.left,.right{display:block}.card{break-inside:avoid;margin-bottom:12px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header><small>Interactive statistics playground ✦</small><h1>Play with Two-Way ANOVA</h1><p>Two factors. Four groups. Three F-tests. Move the sliders to discover main effects, interactions, and why spreading out the observations changes statistical significance.</p></header>
+<div class="intro"><span class="label">Try a scene</span>
+ <button type="button" class="chip" data-scene="equal">Same cell means</button>
+ <button type="button" class="chip" data-scene="a">Only Factor A</button>
+ <button type="button" class="chip" data-scene="b">Only Factor B</button>
+ <button type="button" class="chip" data-scene="both">Both main effects</button>
+ <button type="button" class="chip" data-scene="fan">Fan-shaped interaction</button>
+ <button type="button" class="chip" data-scene="cross">Crossing lines ✦</button>
+ <button type="button" class="chip" data-scene="spread">More within-group variation</button>
+ <button type="button" class="chip" data-scene="unequal">Unequal sample sizes</button>
+ <button type="button" class="chip" data-scene="surprise">Surprise me ↝</button>
+</div>
+<div class="layout">
+<div class="left">
+ <section class="card">
+  <div class="eyebrow">01 · Make your experiment</div><h2>Move the means</h2>
+  <p class="quiet">Factor A and Factor B each have two levels. The interaction changes whether their effects combine in the same way.</p>
+  <label class="slider"><span class="line">Factor A: average difference <output id="aV">8</output></span><input id="effA" type="range" min="-20" max="20" step="1" value="8"/><span class="ends"><span>−20</span><span>0</span><span>+20</span></span></label>
+  <label class="slider"><span class="line">Factor B: average difference <output id="bV">10</output></span><input id="effB" type="range" min="-20" max="20" step="1" value="10"/><span class="ends"><span>−20</span><span>0</span><span>+20</span></span></label>
+  <label class="slider"><span class="line">Interaction: difference in B effects <output id="intV">0</output></span><input id="inter" type="range" min="-32" max="32" step="1" value="0"/><span class="ends"><span>−32</span><span>0 = parallel lines</span><span>+32</span></span></label>
+  <label class="slider"><span class="line">Within-cell sample SD <output id="sdV">6</output></span><input id="sd" type="range" min="1" max="16" step="0.5" value="6"/><span class="ends"><span>1 = tight groups</span><span>16 = more spread</span></span></label>
+  <div class="explain" id="now">Move any slider to see what changes.</div>
+ </section>
+ <section class="card">
+  <div class="eyebrow">02 · Set group sizes</div><h3>Observations per cell</h3>
+  <p class="tiny">Each A × B combination can have a different number of observations.</p>
+  <div class="gridsliders">
+   <label class="slider"><span class="line">A1 · B1 <output id="n11V">8</output></span><input type="range" id="n11" min="3" max="24" value="8" step="1"/></label>
+   <label class="slider"><span class="line">A1 · B2 <output id="n12V">8</output></span><input type="range" id="n12" min="3" max="24" value="8" step="1"/></label>
+   <label class="slider"><span class="line">A2 · B1 <output id="n21V">8</output></span><input type="range" id="n21" min="3" max="24" value="8" step="1"/></label>
+   <label class="slider"><span class="line">A2 · B2 <output id="n22V">8</output></span><input type="range" id="n22" min="3" max="24" value="8" step="1"/></label>
+  </div>
+  <div class="feedback" style="margin-top:10px"><b id="totalN">32</b> total observations <span class="tiny" id="balanceNote">· Balanced design</span></div>
+  <label class="slider"><span class="line">Significance level α <output id="alphaV">0.05</output></span><input id="alpha" type="range" min="0.01" max="0.10" step="0.01" value="0.05"/><span class="ends"><span>0.01</span><span>0.10</span></span></label>
+ </section>
+ <section class="card">
+   <div class="eyebrow">A visual challenge</div><h3 id="challengeTitle">Can you make an X?</h3>
+   <p id="challengeBody" class="quiet">Try the <b>Crossing lines</b> scene. Notice what happens when the two average main effects are zero, but the interaction is not.</p>
+   <button class="btn-lite" id="newChallenge">Another idea ↻</button>
+ </section>
+</div>
+<div class="right">
+ <section class="card">
+  <div class="eyebrow">03 · See the interaction</div><h2>The interaction plot</h2>
+  <p class="quiet">Each line represents a level of Factor A. If the lines aren't parallel, Factor B has a different effect at the two levels of Factor A.</p>
+  <svg id="profile" class="figure" viewBox="0 0 730 350" role="img" aria-label="Interaction plot showing the two levels of Factor A across the two levels of Factor B"></svg>
+  <div class="legend"><span><i class="sw" style="background:var(--teal)"></i>Factor A, level 1</span><span><i class="sw" style="background:var(--orange)"></i>Factor A, level 2</span></div>
+  <div class="explain" id="shapeInsight" aria-live="polite"></div>
+  <div class="reading"><div id="simpleEffects"></div></div>
+ </section>
+ <div class="pair">
+  <section class="card">
+   <div class="eyebrow">04 · See every observation</div><h3>Four groups, one picture</h3>
+   <div class="checks">
+     <label><input id="showDots" type="checkbox" checked/> Observations</label>
+     <label><input id="showMeans" type="checkbox" checked/> Cell means</label>
+     <label><input id="showResiduals" type="checkbox"/> Within-cell deviations</label>
+     <label><input id="showGrand" type="checkbox" checked/> Grand mean</label>
+   </div>
+   <svg id="dotplot" class="figure" viewBox="0 0 540 350" role="img" aria-label="Dot plots of observations in four factor combinations"></svg>
+   <div class="tiny">Teaching samples: changing a slider keeps each cell's sample mean and sample SD exactly at the displayed values.</div>
+  </section>
+  <section class="card">
+   <div class="eyebrow">05 · Compare the means</div><h3>2 × 2 cell means</h3>
+   <p class="tiny">Observe which means change when you move the sliders.</p>
+   <div class="tablelike" role="table" aria-label="Cell means by factor combination">
+    <div class="corner" role="columnheader">A ↓ B →</div><div class="cell axis" role="columnheader">B1</div><div class="cell axis" role="columnheader">B2</div>
+    <div class="cell axis" role="rowheader">A1</div><div class="cell"><strong id="m11">—</strong><small id="size11">n = 8</small></div><div class="cell"><strong id="m12">—</strong><small id="size12">n = 8</small></div>
+    <div class="cell axis" role="rowheader">A2</div><div class="cell"><strong id="m21">—</strong><small id="size21">n = 8</small></div><div class="cell"><strong id="m22">—</strong><small id="size22">n = 8</small></div>
+   </div>
+   <div class="feedback" id="contrastExplanation" style="margin-top:14px"></div>
+  </section>
+ </div>
+ <section class="card">
+  <div class="eyebrow">06 · Three questions, three F-tests</div><h2>What does ANOVA detect?</h2>
+  <p class="quiet">Compare average differences for A and B, then check whether their effects depend on each other.</p>
+  <div class="statgrid">
+   <div class="stat"><div class="headline">Main effect of Factor A</div><div class="fnum" id="fa">—</div><div class="pval" id="pa">p = —</div><br/><span id="decA" class="badge neutral">—</span></div>
+   <div class="stat"><div class="headline">Main effect of Factor B</div><div class="fnum" id="fb">—</div><div class="pval" id="pb">p = —</div><br/><span id="decB" class="badge neutral">—</span></div>
+   <div class="stat"><div class="headline">A × B interaction</div><div class="fnum" id="fi">—</div><div class="pval" id="pi">p = —</div><br/><span id="decI" class="badge neutral">—</span></div>
+  </div>
+  <div class="feedback" id="testReading" aria-live="polite"></div>
+  <p class="note" id="testFootnote"></p>
+ </section>
+</div>
+</div>
+<p class="footer">This is a deterministic educational simulation of a 2 × 2 fixed-effects factorial experiment with a shared sample SD. The F-tests are equal-weight, cell-mean-contrast tests with error degrees of freedom N − 4. They coincide with standard balanced two-way ANOVA tests when all four cell sizes are equal. For unequal cell sizes, these are adjusted tests of equally weighted marginal-mean contrasts, not sequential ANOVA sums of squares; interpret main effects alongside the interaction.</p>
+</main>
+<script>
+// Independent incomplete-beta implementation supports the exact F right-tail probability.
+function logGamma(z){const p=[676.5203681218851,-1259.1392167224028,771.3234287776531,-176.6150291621406,12.507343278686905,-0.13857109526572012,9.984369578019572e-6,1.5056327351493116e-7];if(z<0.5)return Math.log(Math.PI)-Math.log(Math.sin(Math.PI*z))-logGamma(1-z);z-=1;let x=0.9999999999998099;for(let i=0;i<p.length;i++)x+=p[i]/(z+i+1);let t=z+p.length-0.5;return .9189385332046727+(z+.5)*Math.log(t)-t+Math.log(x)}
+function betaCF(a,b,x){const MAX=300,EPS=2e-14,MIN=1e-300;let qab=a+b,qap=a+1,qam=a-1,c=1,d=1-qab*x/qap;if(Math.abs(d)<MIN)d=MIN;d=1/d;let h=d;for(let m=1;m<=MAX;m++){let m2=2*m,aa=m*(b-m)*x/((qam+m2)*(a+m2));d=1+aa*d;if(Math.abs(d)<MIN)d=MIN;c=1+aa/c;if(Math.abs(c)<MIN)c=MIN;d=1/d;h*=d*c;aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2));d=1+aa*d;if(Math.abs(d)<MIN)d=MIN;c=1+aa/c;if(Math.abs(c)<MIN)c=MIN;d=1/d;let delta=d*c;h*=delta;if(Math.abs(delta-1)<EPS)break}return h}
+function regBeta(x,a,b){if(x<=0)return 0;if(x>=1)return 1;let t=Math.exp(logGamma(a+b)-logGamma(a)-logGamma(b)+a*Math.log(x)+b*Math.log1p(-x));if(x<(a+1)/(a+b+2))return Math.max(0,Math.min(1,t*betaCF(a,b,x)/a));return Math.max(0,Math.min(1,1-t*betaCF(b,a,1-x)/b))}
+function fSurvival(f,d1,d2){if(f<=0)return 1;return regBeta(d2/(d2+d1*f),d2/2,d1/2)}
+const $=id=>document.getElementById(id),svgNS='http://www.w3.org/2000/svg',teal='#0f807d',orange='#db8242',fmt=(v,dec=1)=>v.toFixed(dec),formatP=p=>p<.0001?'< 0.0001':p.toFixed(4);
+function shape(name,attrs,text){const e=document.createElementNS(svgNS,name);for(const k of Object.keys(attrs))e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;return e}
+function score(n){let raw=Array.from({length:n},(_,i)=>i-(n-1)/2);let denom=Math.sqrt(raw.reduce((s,v)=>s+v*v,0)/(n-1));return raw.map(x=>x/denom)}
+function state(){const a=+$('effA').value,b=+$('effB').value,i=+$('inter').value,sd=+$('sd').value,n=['n11','n12','n21','n22'].map(k=>+$(k).value),alpha=+$('alpha').value;const means=[50-a/2-b/2+i/4,50-a/2+b/2-i/4,50+a/2-b/2-i/4,50+a/2+b/2+i/4];const observations=means.map((m,k)=>score(n[k]).map(z=>m+z*sd));let N=n.reduce((x,y)=>x+y,0),dfE=N-4,mse=sd*sd;let tests=[[-.5,-.5,.5,.5],[-.5,.5,-.5,.5],[1,-1,-1,1]].map(c=>{let estimate=c.reduce((s,v,k)=>s+v*means[k],0),varFactor=c.reduce((s,v,k)=>s+v*v/n[k],0);let F=estimate*estimate/(varFactor*mse);return {estimate,F,p:fSurvival(F,1,dfE)}});return {a,b,i,sd,n,alpha,means,observations,N,dfE,mse,tests,grand:means.reduce((s,m,k)=>s+m*n[k],0)/N,balanced:n.every(x=>x===n[0])}}
+function profile(s){const e=$('profile');e.replaceChildren();const L=95,R=610,top=35,bottom=292;let min=Math.min(...s.means),max=Math.max(...s.means),pad=Math.max(3,(max-min)*.32),low=min-pad,high=max+pad,Y=v=>bottom-(v-low)/(high-low)*(bottom-top);e.append(shape('text',{x:20,y:18,class:'svgaxis'},'Cell mean'));for(let j=0;j<=4;j++){let v=low+(high-low)*j/4,yp=Y(v);e.append(shape('line',{x1:L,y1:yp,x2:R,y2:yp,stroke:'#e5eef2','stroke-width':1}));e.append(shape('text',{x:L-11,y:yp+5,class:'svgtext','text-anchor':'end'},fmt(v,1)))}
+for(let k=0;k<2;k++){let xx=k===0?L:R;e.append(shape('line',{x1:xx,y1:top,x2:xx,y2:bottom,stroke:'#e8edf0','stroke-dasharray':'4 6'}));e.append(shape('text',{x:xx,y:bottom+27,'text-anchor':'middle',class:'svgaxis'},'Factor B: level '+(k+1)))}e.append(shape('text',{x:(L+R)/2,y:343,'text-anchor':'middle',class:'svgtext'},'Compare the slopes and the distance between lines'));
+for(let a=0;a<2;a++){let x1=L,x2=R,y1=Y(s.means[a*2]),y2=Y(s.means[a*2+1]),color=a===0?teal:orange;let path=shape('line',{x1,y1,x2,y2,stroke:color,'stroke-width':4,'stroke-linecap':'round'});e.append(path);for(let b=0;b<2;b++){let x=b?R:L,y=Y(s.means[a*2+b]);e.append(shape('circle',{cx:x,cy:y,r:7,fill:color,stroke:'white','stroke-width':2}));let point=shape('circle',{cx:x,cy:y,r:13,fill:'transparent'});point.append(shape('title',{},`A${a+1}, B${b+1}: mean ${fmt(s.means[a*2+b])}`));e.append(point)}}}
+function dotPlot(s){const e=$('dotplot');e.replaceChildren();let all=s.observations.flat(),min=Math.min(...all,s.grand),max=Math.max(...all,s.grand),pad=Math.max(4,(max-min)*.12),low=min-pad,high=max+pad,L=90,R=511,Y=[45,118,191,264],X=v=>L+(v-low)/(high-low)*(R-L);
+let drawMeans=$('showMeans').checked,drawDots=$('showDots').checked,drawResiduals=$('showResiduals').checked,drawGrand=$('showGrand').checked;if(drawGrand){e.append(shape('line',{x1:X(s.grand),y1:12,x2:X(s.grand),y2:298,stroke:'#687d88','stroke-width':1.8,'stroke-dasharray':'5 5'}));e.append(shape('text',{x:X(s.grand),y:12,class:'svgtext','text-anchor':'middle'},'grand mean'))}
+for(let cell=0;cell<4;cell++){let y=Y[cell],m=s.means[cell],color=cell<2?teal:orange;e.append(shape('line',{x1:L,y1:y,x2:R,y2:y,stroke:'#e6eef1','stroke-width':1}));e.append(shape('text',{x:6,y:y+5,class:'svgaxis'},'A'+(Math.floor(cell/2)+1)+' · B'+(cell%2+1)));let obs=s.observations[cell];obs.forEach((v,i)=>{let vy=y+((i%4)-1.5)*7;if(drawResiduals){e.append(shape('line',{x1:X(v),y1:vy,x2:X(m),y2:vy,stroke:color,'stroke-width':1,opacity:.3}))}if(drawDots){let dot=shape('circle',{cx:X(v),cy:vy,r:3.8,fill:color,opacity:.86});dot.append(shape('title',{},`A${Math.floor(cell/2)+1}, B${cell%2+1}: ${fmt(v,2)}`));e.append(dot)}});if(drawMeans){e.append(shape('line',{x1:X(m),y1:y-24,x2:X(m),y2:y+24,stroke:color,'stroke-width':3}));e.append(shape('text',{x:X(m),y:y-27,'text-anchor':'middle',class:'svgtext'},'μ̂ = '+fmt(m,1)))}}
+e.append(shape('line',{x1:L,y1:301,x2:R,y2:301,stroke:'#8096a0','stroke-width':1.5}));for(let j=0;j<=5;j++){let v=low+(high-low)*j/5,x=X(v);e.append(shape('line',{x1:x,y1:301,x2:x,y2:307,stroke:'#8096a0'}));e.append(shape('text',{x,y:324,'text-anchor':'middle',class:'svgtext'},fmt(v,0)))}e.append(shape('text',{x:(L+R)/2,y:344,'text-anchor':'middle',class:'svgtext'},'Observation value'))}
+function decision(el,t,s){let pass=t.p<s.alpha;el.textContent=pass?'Reject H₀':'Do not reject';el.className='badge '+(pass?'yes':'no')}
+function render(){let s=state();for(const [id,key] of [['aV','a'],['bV','b'],['intV','i'],['sdV','sd']])$(id).textContent=fmt(s[key],key==='sd'?1:0);['n11','n12','n21','n22'].forEach((id,k)=>{$(id+'V').textContent=s.n[k];$('size'+(Math.floor(k/2)+1)+(k%2+1)).textContent='n = '+s.n[k]});$('alphaV').textContent=fmt(s.alpha,2);$('totalN').textContent=s.N;$('balanceNote').textContent=s.balanced?'· Balanced design':'· Unequal cell sizes';['m11','m12','m21','m22'].forEach((id,k)=>$(id).textContent=fmt(s.means[k]));
+profile(s);dotPlot(s);let eps=.01,delta1=s.means[1]-s.means[0],delta2=s.means[3]-s.means[2];let differenceAtB1=s.means[2]-s.means[0],differenceAtB2=s.means[3]-s.means[1];let crosses=differenceAtB1*differenceAtB2 < -eps;
+if(Math.abs(s.i)<eps){$('shapeInsight').innerHTML='<strong>Parallel lines:</strong> No interaction in these displayed cell means. The effect of Factor B is the same at both levels of Factor A.'}
+else if(crosses){$('shapeInsight').innerHTML='<strong>Crossing lines:</strong> The relative ordering of the two A groups reverses between B1 and B2. That is an interaction.'}
+else{$('shapeInsight').innerHTML='<strong>Nonparallel lines:</strong> The effect of Factor B changes with Factor A, even if the lines do not actually cross.'}
+$('simpleEffects').innerHTML=`<b>Factor B’s effect at each level of A:</b> ${fmt(delta1,1)} units at A1 versus ${fmt(delta2,1)} at A2. The difference between these effects is <b>${fmt(delta2-delta1,1)}</b>.`;
+$('now').innerHTML=`<strong>Current pattern:</strong> A's average difference is ${fmt(s.a,1)}, B's is ${fmt(s.b,1)}, and the interaction (difference-in-differences) is ${fmt(s.i,1)}. ${s.i===0?'Try moving the interaction slider to break the parallel lines.':'Try setting both main effects to zero: an interaction can remain.'}`;
+$('contrastExplanation').innerHTML=`<b>Mean contrasts</b><br>Factor A: ${fmt(s.tests[0].estimate,1)} &nbsp;·&nbsp; Factor B: ${fmt(s.tests[1].estimate,1)}<br>Interaction: ${fmt(s.tests[2].estimate,1)}<br><span class="tiny">These A and B contrasts average the two other-factor levels equally, even when cell sizes differ.</span>`;
+['a','b','i'].forEach((letter,k)=>{let t=s.tests[k];$('f'+letter).textContent='F = '+fmt(t.F,2);$('p'+letter).textContent='p '+(t.p<.0001?'< 0.0001':'= '+fmt(t.p,4));decision($('dec'+letter.toUpperCase()),t,s)});
+let significant=s.tests.map(t=>t.p<s.alpha);$('testReading').innerHTML=`<b>What do these tests ask?</b><br> A: Do the two A levels have different equally averaged means?<br>B: Do the two B levels have different equally averaged means?<br>A × B: Is the B1-to-B2 difference different at A1 and A2?<br><span class="tiny">Error MS = ${fmt(s.mse,2)}; denominator df = N − 4 = ${s.dfE}; each numerator df = 1; α = ${fmt(s.alpha,2)}.</span>`;
+$('testFootnote').textContent=s.balanced?'With equal cell sizes these three F-tests agree with the usual balanced 2 × 2 ANOVA. Significance also depends on the within-cell SD and number of observations.':'Unequal group sizes: these F-tests compare adjusted, equally weighted contrasts of the four cell means. They are not the sequential sums-of-squares tests. When interaction exists, examine the simple effects shown above before interpreting main effects.';
+}
+const sceneData={equal:{a:0,b:0,i:0,sd:7,n:[8,8,8,8]},a:{a:13,b:0,i:0,sd:6,n:[8,8,8,8]},b:{a:0,b:13,i:0,sd:6,n:[8,8,8,8]},both:{a:8,b:10,i:0,sd:6,n:[8,8,8,8]},fan:{a:10,b:7,i:11,sd:6,n:[8,8,8,8]},cross:{a:0,b:0,i:24,sd:5,n:[8,8,8,8]},spread:{a:10,b:7,i:11,sd:15,n:[8,8,8,8]},unequal:{a:10,b:7,i:11,sd:6,n:[3,14,6,19]}};
+function applyScene(key){let p;if(key==='surprise'){p={a:Math.round(Math.random()*36-18),b:Math.round(Math.random()*36-18),i:Math.round(Math.random()*52-26),sd:2+Math.round(Math.random()*24)/2,n:Array.from({length:4},()=>3+Math.floor(Math.random()*21))}}else p=sceneData[key];if(!p)return;for(let [id,v] of [['effA',p.a],['effB',p.b],['inter',p.i],['sd',p.sd]])$(id).value=v;['n11','n12','n21','n22'].forEach((id,k)=>$(id).value=p.n[k]);document.querySelectorAll('[data-scene]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.scene===key?'true':'false'));render()}
+const challenges=[['Can you make an X?','Try <b>Crossing lines</b>. Both average main effects are zero, but an interaction is present. Can you explain why?'],['Can you make the lines parallel?','Choose <b>Both main effects</b>, then set the interaction slider to zero. Notice that parallel lines can still show main effects.'],['Hide a real pattern in the spread','Choose <b>Fan-shaped interaction</b>, then raise within-cell SD. What happens to all three p-values?'],['Change only the sample sizes','Choose <b>Unequal sample sizes</b>, then increase just one cell’s n. The group means stay fixed: what happens to the three F-statistics?'],['Make all means equal','Choose <b>Same cell means</b>. What should all three F-statistics become?']];let challengeIndex=0;function nextChallenge(){challengeIndex=(challengeIndex+1)%challenges.length;$('challengeTitle').textContent=challenges[challengeIndex][0];$('challengeBody').innerHTML=challenges[challengeIndex][1]}
+document.querySelectorAll('input[type=range]').forEach(e=>e.addEventListener('input',()=>{document.querySelectorAll('[data-scene]').forEach(b=>b.setAttribute('aria-pressed','false'));render()}));document.querySelectorAll('input[type=checkbox]').forEach(e=>e.addEventListener('change',render));document.querySelectorAll('[data-scene]').forEach(b=>b.addEventListener('click',()=>applyScene(b.dataset.scene)));$('newChallenge').addEventListener('click',nextChallenge);applyScene('both');
+</script>
+</body>
+</html>
